@@ -8,7 +8,8 @@
   "start": "node dist/index.js",
   "dev": "ts-node src/index.ts",
   "watch": "tsc -w",
-  "test": "echo \"Error: no test specified\" && exit 1"
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "task-cli": "node dist/interface/cli/app.js"
   },
   "repository": {
     "type": "git",
