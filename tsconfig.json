@@ -9,11 +9,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "paths": {
-      "@domain/*": ["domain/*"],
-      "@application/*": ["application/*"],
-      "@infrastructure/*": ["infrastructure/*"],
-      "@interfaces/*": ["interfaces/*"],
-      "@commands/*": ["interfaces/commands/*"]
+      "@domain/*": ["./domain/*"],
+      "@application/*": ["./application/*"],
+      "@infrastructure/*": ["./infrastructure/*"],
+      "@interfaces/*": ["./interfaces/*"]
     }
   },
   "include": ["src"],
