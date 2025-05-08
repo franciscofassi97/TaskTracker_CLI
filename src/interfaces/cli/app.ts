@@ -1,6 +1,9 @@
+import { create } from "domain";
 import { ListTaskUseCase } from "../../application/use-cases/index";
 import { JsonTaskRepository } from "../../infrastructure/persistence/index";
+import { CreateTaskCommand } from "./commands/CreateTaskCommand";
 import { ListTaskCommand } from "./commands/index";
+import { CreateTaskUseCase } from "../../application/use-cases/CreateTaskUseCase";
 
 export class CliApp {
     private commands: Record<string, any> = {};
@@ -8,9 +11,11 @@ export class CliApp {
     constructor() {
       const taskRepository = new JsonTaskRepository();
       const listTasksUseCase = new ListTaskUseCase(taskRepository);
-      
+      const createTaskUseCase = new CreateTaskUseCase(taskRepository);
+
       this.commands = {
         list: new ListTaskCommand(listTasksUseCase),
+        add: new CreateTaskCommand(createTaskUseCase, process.argv[3]),
       };
     }
   
