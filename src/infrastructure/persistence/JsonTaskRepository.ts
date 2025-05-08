@@ -46,15 +46,22 @@ export class JsonTaskRepository implements ITaskRepository{
         }
     }
 
-    async createTask(task: Task): Promise<Task>{
+    async createTask(description: string): Promise<number>{
         try {
             const data: Task[] = await this.readingFile();
             const newId = data.length > 0 ? Math.max(...data.map(task => task.id)) + 1 : 1; // Generating id based on length
-            const newTask = {...task, id: newId}; // Generating id based on length
+            // const newTask = {...task, id: newId}; // Generating id based on length
+            const newTask: Task ={
+                id: newId,
+                description: description,
+                status: "pending",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }
             data.push(newTask);
 
             await this.writingFile(data);
-            return newTask;
+            return newTask.id;
         } catch (error: any) {
             throw new Error(`Failed to create task: ${error instanceof Error ? error.message : String(error)}`);
         }
