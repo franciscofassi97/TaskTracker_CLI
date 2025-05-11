@@ -1,10 +1,11 @@
+import { TaskStatus } from "../../domain/entities/TaskStatus";
 import { ITaskRepository } from "../../domain/repositories/ITaskRepository";
 import { IUpdateTask } from "../../domain/repositories/IUpdateTask";
 
 export class ChangeStatusUseCase {
     constructor(private taskRepository: ITaskRepository){};
 
-    async execute(id: number, status: string): Promise<number>{
+    async execute(id: number, status: TaskStatus): Promise<number>{
         if (!id || id <= 0 || !status) {
             throw new Error("Task status and id are required.");
         }

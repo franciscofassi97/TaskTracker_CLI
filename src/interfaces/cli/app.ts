@@ -10,6 +10,7 @@ import { UpdateTaskUseCase } from "../../application/use-cases/UpdateTaskUseCase
 import { UpdateTaskCommand } from "./commands/UpdateTaskCommand";
 import { ChangeStatusUseCase } from "../../application/use-cases/ChangeStatusUseCase";
 import { ChangeStatusCommand } from "./commands/ChangeStatusCommand";
+import { TaskStatus } from "../../domain/entities/TaskStatus";
 
 export class CliApp {
     private commands: Record<string, any> = {};
@@ -31,8 +32,8 @@ export class CliApp {
         add: new CreateTaskCommand(createTaskUseCase, process.argv[3]),
         delete: new DeleteTaskCommand(deleteTaskUseCase, process.argv[3]),
         update: new UpdateTaskCommand(updateTaskUseCase, process.argv[3], process.argv[4]),
-        [this.markInProgress] : new ChangeStatusCommand(changeStatusUseCase, process.argv[3], "in-progress"),
-        [this.markDone] : new ChangeStatusCommand(changeStatusUseCase, process.argv[3], "done"),
+        [this.markInProgress] : new ChangeStatusCommand(changeStatusUseCase, process.argv[3], TaskStatus.IN_PROGRESS),
+        [this.markDone] : new ChangeStatusCommand(changeStatusUseCase, process.argv[3], TaskStatus.DONE),
       };
     }
   

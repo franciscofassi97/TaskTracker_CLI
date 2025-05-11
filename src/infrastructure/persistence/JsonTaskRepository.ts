@@ -3,6 +3,7 @@ import { ITaskRepository } from "../../domain/repositories/index";
 import path from "node:path";
 import fs from "fs/promises"
 import { IUpdateTask } from "../../domain/repositories/IUpdateTask";
+import { TaskStatus } from "../../domain/entities/TaskStatus";
 
 export class JsonTaskRepository implements ITaskRepository{
 
@@ -56,7 +57,7 @@ export class JsonTaskRepository implements ITaskRepository{
             const newTask: Task ={
                 id: newId,
                 description: description,
-                status: "pending",
+                status: TaskStatus.PENDING,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             }

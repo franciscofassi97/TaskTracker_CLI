@@ -1,11 +1,13 @@
-import { ChangeStatusUseCase } from "@application/use-cases/ChangeStatusUseCase";
+
+import { ChangeStatusUseCase } from "../../../application/use-cases/ChangeStatusUseCase";
+import { TaskStatus } from "../../../domain/entities/TaskStatus";
 
 
 export class ChangeStatusCommand {
     public id: string;
-    public status: string;
+    public status: TaskStatus;
 
-    constructor(private useCase: ChangeStatusUseCase, id: string, status: string){
+    constructor(private useCase: ChangeStatusUseCase, id: string, status: TaskStatus){
         this.id = id;
         this.status = status;
     }
