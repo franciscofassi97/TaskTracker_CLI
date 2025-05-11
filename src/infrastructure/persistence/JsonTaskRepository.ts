@@ -4,6 +4,7 @@ import path from "node:path";
 import fs from "fs/promises"
 
 export class JsonTaskRepository implements ITaskRepository{
+   
     private readonly filePath = path.join(__dirname, "../../../task.json"); 
     
     private readonly readingFile = async (): Promise<Task[]> => {
@@ -66,6 +67,21 @@ export class JsonTaskRepository implements ITaskRepository{
             throw new Error(`Failed to create task: ${error instanceof Error ? error.message : String(error)}`);
         }
 
+    }
+    
+    async deleteTask(id: number): Promise<number> {
+        try {
+            const taskList: Task[] = await this.readingFile();
+            
+            const updatedTask : Task[] = taskList.filter((task) => task.id !== id);
+            if(updatedTask.length === taskList.length){
+                throw new Error(`Task with id ${id} not found`)
+            }
+            await this.writingFile(updatedTask);
+            return id;
+        } catch (error) {
+            throw new Error(`Failed to delete task: ${error instanceof Error ? error.message : String(error)}`);
+        }
     }
 
 
