@@ -1,12 +1,20 @@
+import { TaskStatus } from "../../../domain/entities/TaskStatus";
 import { ListTaskUseCase } from "../../../application/use-cases/index";
-// import { Task } from "@domain/entities";
+
 
 export class ListTaskCommand {
-    constructor(private useCase: ListTaskUseCase){}
+    public filter?: string;
+    
+    constructor(private useCase: ListTaskUseCase, filter?: string) {
+        this.filter = filter;
+    }
 
-    async execute(filter?: string): Promise<void> {
+    async execute(): Promise<void> {
         try {
-            const tasks =  await this.useCase.exucte()
+            if(this.filter && this.filter === "todo"){
+                this.filter = TaskStatus.PENDING;
+            }
+            const tasks =  await this.useCase.exucte(this.filter);
             if(tasks.length === 0){
                 console.log("Task not found");
             }

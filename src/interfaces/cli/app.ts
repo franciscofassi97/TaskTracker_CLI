@@ -28,7 +28,7 @@ export class CliApp {
       this.markDone = "mark-done";
 
       this.commands = {
-        list: new ListTaskCommand(listTasksUseCase),
+        list: new ListTaskCommand(listTasksUseCase, process.argv[3]),
         add: new CreateTaskCommand(createTaskUseCase, process.argv[3]),
         delete: new DeleteTaskCommand(deleteTaskUseCase, process.argv[3]),
         update: new UpdateTaskCommand(updateTaskUseCase, process.argv[3], process.argv[4]),
@@ -45,7 +45,7 @@ export class CliApp {
         console.log("Available commands: list, add, etc.");
         return;
       }
-  
+
       if (this.commands[command]) {
         await this.commands[command].execute(...args);
       } else {
