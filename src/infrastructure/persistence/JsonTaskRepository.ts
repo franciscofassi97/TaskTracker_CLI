@@ -4,7 +4,7 @@ import path from "node:path";
 import fs from "fs/promises"
 
 export class JsonTaskRepository implements ITaskRepository{
-   
+
     private readonly filePath = path.join(__dirname, "../../../task.json"); 
     
     private readonly readingFile = async (): Promise<Task[]> => {
@@ -84,6 +84,24 @@ export class JsonTaskRepository implements ITaskRepository{
         }
     }
 
+
+    async updateTask(id: number, description: string): Promise<number> {
+        try {
+            const taskList: Task[] = await this.readingFile();
+            const taskIndex: number = taskList.findIndex((task: Task) => task.id === id);
+            if(taskIndex === -1) throw new Error(`Task with id ${id} not found`);
+
+            const taskToUpdate: Task = taskList[taskIndex];
+            taskToUpdate.description = description;
+            taskToUpdate.updatedAt = new Date();
+
+            taskList[taskIndex] = taskToUpdate;
+            await this.writingFile(taskList);
+            return taskToUpdate.id;
+        } catch (error) {
+            throw new Error(`Failed to update task: ${error instanceof Error ? error.message : String(error)}`);
+        }
+    }
 
     
 }

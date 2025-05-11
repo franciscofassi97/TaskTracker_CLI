@@ -6,6 +6,8 @@ import { ListTaskCommand } from "./commands/index";
 import { CreateTaskUseCase } from "../../application/use-cases/CreateTaskUseCase";
 import { DeleteTaskUseCase } from "../../application/use-cases/DeleteTaskUseCase";
 import { DeleteTaskCommand } from "./commands/DeleteTaskCommand";
+import { UpdateTaskUseCase } from "../../application/use-cases/UpdateTaskUseCase";
+import { UpdateTaskCommand } from "./commands/UpdateTaskCommand";
 
 export class CliApp {
     private commands: Record<string, any> = {};
@@ -15,11 +17,13 @@ export class CliApp {
       const listTasksUseCase = new ListTaskUseCase(taskRepository);
       const createTaskUseCase = new CreateTaskUseCase(taskRepository);
       const deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
+      const updateTaskUseCase = new UpdateTaskUseCase(taskRepository);
 
       this.commands = {
         list: new ListTaskCommand(listTasksUseCase),
         add: new CreateTaskCommand(createTaskUseCase, process.argv[3]),
         delete: new DeleteTaskCommand(deleteTaskUseCase, process.argv[3]),
+        update: new UpdateTaskCommand(updateTaskUseCase, process.argv[3], process.argv[4]),
       };
     }
   
