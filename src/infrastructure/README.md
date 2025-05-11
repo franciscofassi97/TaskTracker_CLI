@@ -1,3 +1,22 @@
+#### **4. Infrastructure Layer (`/src/infrastructure/README.md`)**
+
+# Infrastructure Layer
+
+## Purpose
+
+Implements technical details:
+
+- **Persistence**: Databases, JSON files (`TaskRepository`).
+- **External services**: APIs, third-party libraries.
+
+## Rules:
+
+- ✅ **Depends on `domain` and `application`** (implements their interfaces).
+- ✅ **Technical code belongs here** (e.g., SQL, HTTP requests).
+- 🚫 **No business logic**.
+
+---
+
 #### **4. Capa de Infraestructura (`/src/infrastructure/README.md`)**
 
 # Capa de Infraestructura
