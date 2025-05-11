@@ -2,6 +2,7 @@ import { Task } from "../../domain/entities/index";
 import { ITaskRepository } from "../../domain/repositories/index";
 import path from "node:path";
 import fs from "fs/promises"
+import { IUpdateTask } from "../../domain/repositories/IUpdateTask";
 
 export class JsonTaskRepository implements ITaskRepository{
 
@@ -85,14 +86,16 @@ export class JsonTaskRepository implements ITaskRepository{
     }
 
 
-    async updateTask(id: number, description: string): Promise<number> {
+    async updateTask(id: number, task: IUpdateTask): Promise<number> {
         try {
             const taskList: Task[] = await this.readingFile();
             const taskIndex: number = taskList.findIndex((task: Task) => task.id === id);
             if(taskIndex === -1) throw new Error(`Task with id ${id} not found`);
 
             const taskToUpdate: Task = taskList[taskIndex];
-            taskToUpdate.description = description;
+            const { description, status } = task;
+            if (status) taskToUpdate.status = status;
+            if (description) taskToUpdate.description = description;
             taskToUpdate.updatedAt = new Date();
 
             taskList[taskIndex] = taskToUpdate;

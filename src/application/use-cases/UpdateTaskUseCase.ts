@@ -1,4 +1,4 @@
-import { Task } from "../../domain/entities";
+import { IUpdateTask } from "../../domain/repositories/IUpdateTask";
 import { ITaskRepository } from "../../domain/repositories";
 
 
@@ -9,6 +9,8 @@ export class UpdateTaskUseCase {
         if (!id || id <= 0 || !description) {
             throw new Error("Task description and id are required.");
         }
-        return this.taskRepository.updateTask(id, description);
+        const taskToUpdate : IUpdateTask = {description: description};
+
+        return this.taskRepository.updateTask(id, taskToUpdate);
     }
 }

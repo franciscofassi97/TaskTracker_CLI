@@ -1,4 +1,4 @@
-import { UpdateTaskUseCase } from "@application/use-cases/UpdateTaskUseCase";
+import { UpdateTaskUseCase } from "../../../application/use-cases/UpdateTaskUseCase";
 
 
 export class UpdateTaskCommand {
